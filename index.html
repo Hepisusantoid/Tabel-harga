@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harga Pestisida — Sumber Makmur</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #F5F7F2;
+  --surface:    #FFFFFF;
+  --surface2:   #F0F4EC;
+  --border:     #DDE5D7;
+  --border2:    #C8D6C0;
+  --green:      #2E7D32;
+  --green-lt:   #4CAF50;
+  --green-bg:   #E8F5E9;
+  --yellow:     #F57F17;
+  --yellow-bg:  #FFF8E1;
+  --red:        #C62828;
+  --red-bg:     #FFEBEE;
+  --text:       #1B2918;
+  --text2:      #4A6040;
+  --muted:      #7A9470;
+  --shadow:     0 2px 12px rgba(46,125,50,0.08);
+  --shadow-md:  0 4px 24px rgba(46,125,50,0.12);
+  --radius:     14px;
+  --radius-sm:  8px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: var(--green);
+  color: #fff;
+  padding: 28px 24px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  right: 40px; bottom: -60px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 800;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  font-size: 14px;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* ===== STATS ===== */
+.stats-row {
+  max-width: 900px;
+  margin: -20px auto 0;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.stat-value.green { color: var(--green); }
+.stat-value.yellow { color: var(--yellow); }
+
+/* ===== MAIN ===== */
+.main {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px 60px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title .icon {
+  width: 32px; height: 32px;
+  background: var(--green-bg);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.card-body { padding: 20px 22px; }
+
+/* ===== FORM ===== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .form-grid .field:first-child { grid-column: 1 / -1; }
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.field label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text2);
+  text-transform: uppercase;
+}
+
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.field input:focus {
+  border-color: var(--green-lt);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(76,175,80,0.12);
+}
+
+.field input.error { border-color: var(--red); }
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(46,125,50,0.25);
+}
+
+.btn-primary:hover {
+  background: #1B5E20;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(46,125,50,0.35);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.form-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--red);
+  display: none;
+}
+
+.form-msg.show { display: block; }
+
+/* ===== LEGEND ===== */
+.legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+/* ===== TOOLBAR ===== */
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 180px;
+}
+
+.search-wrap input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-wrap input:focus {
+  border-color: var(--green-lt);
+  box-shadow: 0 0 0 3px rgba(76,175,80,0.12);
+}
+
+.search-icon {
+  position: absolute;
+  left: 13px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.sort-btn {
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.sort-btn.active {
+  border-color: var(--green-lt);
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+/* ===== TABLE ===== */
+.table-container {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+
+thead th {
+  background: var(--surface2);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1.5px solid var(--border);
+  white-space: nowrap;
+}
+
+thead th.right { text-align: right; }
+thead th.center { text-align: center; }
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface2); }
+
+tbody td {
+  padding: 13px 16px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+td.right { text-align: right; }
+td.center { text-align: center; }
+
+.nama-cell {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.price-online { color: var(--green); }
+.price-offline { color: var(--yellow); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge-hemat {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.badge-mahal {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.badge-sama {
+  background: var(--surface2);
+  color: var(--muted);
+}
+
+.tanggal-cell {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.num-cell {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  width: 36px;
+}
+
+.btn-del {
+  background: transparent;
+  border: 1.5px solid #FFCDD2;
+  color: #EF9A9A;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-del:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-bg);
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  text-align: center;
+  padding: 56px 24px;
+  color: var(--muted);
+}
+
+.empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; font-weight: 500; line-height: 1.6; }
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.status-dot.online { background: var(--green-lt); }
+.status-dot.loading { background: var(--yellow); animation: pulse 1s infinite; }
+.status-dot.error { background: var(--red); }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s;
+  opacity: 0;
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.danger { background: var(--red); }
+
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .stats-row .stat-card:last-child { grid-column: 1 / -1; }
+  .card-body { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">🌿 Sumber Makmur · Mesuji</div>
+    <h1>Riwayat Harga Pestisida</h1>
+    <p>Bandingkan harga online vs offline secara real-time</p>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-label">Total Produk</div>
+    <div class="stat-value" id="stat-total">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Rata² Online</div>
+    <div class="stat-value green" id="stat-avg-online">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Rata² Offline</div>
+    <div class="stat-value yellow" id="stat-avg-offline">—</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- FORM -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <div class="icon">📥</div>
+        Tambah Data Harga
+      </div>
+      <div class="status-bar">
+        <div class="status-dot loading" id="status-dot"></div>
+        <span id="status-text">Memuat...</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Nama Pestisida</label>
+          <input type="text" id="inp-nama" placeholder="cth: Gramoxone 1L" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label>Harga Online (Rp)</label>
+          <input type="text" id="inp-online" placeholder="85.000" inputmode="numeric" />
+        </div>
+        <div class="field">
+          <label>Harga Offline (Rp)</label>
+          <input type="text" id="inp-offline" placeholder="90.000" inputmode="numeric" />
+        </div>
+        <div class="field">
+          <label>Tanggal</label>
+          <input type="date" id="inp-tanggal" />
+        </div>
+      </div>
+      <div class="form-footer">
+        <button class="btn btn-primary" onclick="tambahData()" id="btn-tambah">
+          ＋ Tambah Data
+        </button>
+        <div class="form-msg" id="form-msg"></div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Harga Online</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Harga Offline</div>
+        <div class="legend-item" style="color:var(--green)">↓ Online lebih hemat dari offline</div>
+        <div class="legend-item" style="color:var(--red)">↑ Online lebih mahal dari offline</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <div class="icon">📋</div>
+        Riwayat Harga
+      </div>
+      <span id="row-count" style="font-size:13px;font-weight:600;color:var(--muted)"></span>
+    </div>
+    <div class="card-body" style="padding-bottom:10px;">
+      <div class="toolbar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-inp" placeholder="Cari nama pestisida..." oninput="renderTable()" />
+        </div>
+        <button class="sort-btn active" id="sort-btn-tanggal" onclick="setSort('tanggal')">📅 Tanggal</button>
+        <button class="sort-btn" id="sort-btn-nama" onclick="setSort('nama')">🔤 Nama</button>
+        <button class="sort-btn" id="sort-btn-online" onclick="setSort('online')">💚 Online</button>
+        <button class="sort-btn" id="sort-btn-offline" onclick="setSort('offline')">💛 Offline</button>
+      </div>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th class="center">#</th>
+            <th>Nama Pestisida</th>
+            <th class="right">Harga Online</th>
+            <th class="right">Harga Offline</th>
+            <th class="right">Selisih</th>
+            <th>Tanggal</th>
+            <th class="center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tabel-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- end main -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ─────────────────────────────────────────────────────
+// API endpoint: gunakan /api/data saat di Vercel
+// Saat pengembangan lokal, ubah ke URL Vercel yang sudah di-deploy
+const API_URL = '/api/data';
+
+// ── STATE ──────────────────────────────────────────────────────
+let items = [];      // array data pestisida
+let sortKey = 'tanggal';
+let sortDir = -1;    // -1 = desc (terbaru dulu)
+let isSaving = false;
+
+// ── INIT ───────────────────────────────────────────────────────
+document.getElementById('inp-tanggal').value = todayStr();
+loadData();
+
+// ── FORMAT RIBUAN ──────────────────────────────────────────────
+function formatRibuan(val) {
+  // Hanya angka
+  const num = String(val).replace(/\D/g, '');
+  if (!num) return '';
+  return Number(num).toLocaleString('id-ID');
+}
+
+function parseRibuan(str) {
+  return parseInt(String(str).replace(/\./g, '').replace(/,/g, ''), 10) || 0;
+}
+
+function rp(n) {
+  return 'Rp\u00A0' + Number(n).toLocaleString('id-ID');
+}
+
+function rpShort(n) {
+  if (n >= 1000000) return 'Rp\u00A0' + (n/1000000).toLocaleString('id-ID', {minimumFractionDigits:1,maximumFractionDigits:1}) + '\u00A0jt';
+  if (n >= 1000)    return 'Rp\u00A0' + (n/1000).toLocaleString('id-ID', {minimumFractionDigits:0,maximumFractionDigits:0}) + '\u00A0rb';
+  return rp(n);
+}
+
+// Format input otomatis saat user mengetik
+['inp-online','inp-offline'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', function() {
+    const raw = this.value.replace(/\D/g, '');
+    const pos = this.selectionStart;
+    this.value = raw ? Number(raw).toLocaleString('id-ID') : '';
+  });
+});
+
+// ── DATE ───────────────────────────────────────────────────────
+function todayStr() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function formatTanggal(str) {
+  const d = new Date(str + 'T00:00:00');
+  return d.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+// ── STATUS ─────────────────────────────────────────────────────
+function setStatus(state, text) {
+  const dot  = document.getElementById('status-dot');
+  const span = document.getElementById('status-text');
+  dot.className = 'status-dot ' + state;
+  span.textContent = text;
+}
+
+// ── LOAD DATA ──────────────────────────────────────────────────
+async function loadData() {
+  setStatus('loading', 'Memuat data...');
+  try {
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    items = Array.isArray(json.items) ? json.items : [];
+    setStatus('online', 'Tersambung ke cloud');
+    renderTable();
+    updateStats();
+  } catch (err) {
+    setStatus('error', 'Gagal memuat — cek koneksi');
+    showToast('⚠ Gagal memuat data: ' + err.message, 'danger');
+  }
+}
+
+// ── SAVE DATA ──────────────────────────────────────────────────
+async function saveData() {
+  try {
+    const res = await fetch(API_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    setStatus('online', 'Tersimpan · ' + new Date().toLocaleTimeString('id-ID'));
+  } catch (err) {
+    setStatus('error', 'Gagal menyimpan');
+    showToast('⚠ Gagal menyimpan: ' + err.message, 'danger');
+    throw err;
+  }
+}
+
+// ── TAMBAH DATA ────────────────────────────────────────────────
+async function tambahData() {
+  if (isSaving) return;
+
+  const nama    = document.getElementById('inp-nama').value.trim();
+  const onlineRaw  = document.getElementById('inp-online').value;
+  const offlineRaw = document.getElementById('inp-offline').value;
+  const tanggal = document.getElementById('inp-tanggal').value;
+  const online  = parseRibuan(onlineRaw);
+  const offline = parseRibuan(offlineRaw);
+
+  const msgEl = document.getElementById('form-msg');
+  msgEl.className = 'form-msg';
+
+  let err = '';
+  if (!nama)             err = '⚠ Nama pestisida wajib diisi.';
+  else if (!online)      err = '⚠ Harga online tidak valid.';
+  else if (!offline)     err = '⚠ Harga offline tidak valid.';
+  else if (!tanggal)     err = '⚠ Tanggal wajib diisi.';
+
+  if (err) {
+    msgEl.textContent = err;
+    msgEl.className = 'form-msg show';
+    return;
+  }
+
+  isSaving = true;
+  const btn = document.getElementById('btn-tambah');
+  btn.textContent = '⏳ Menyimpan...';
+  btn.disabled = true;
+
+  items.push({ id: Date.now(), nama, online, offline, tanggal });
+
+  try {
+    await saveData();
+    renderTable();
+    updateStats();
+    showToast('✓ Data berhasil disimpan!', 'success');
+
+    document.getElementById('inp-nama').value    = '';
+    document.getElementById('inp-online').value  = '';
+    document.getElementById('inp-offline').value = '';
+    document.getElementById('inp-tanggal').value = todayStr();
+    msgEl.className = 'form-msg';
+  } catch (_) {
+    // rollback
+    items.pop();
+  } finally {
+    isSaving = false;
+    btn.textContent = '＋ Tambah Data';
+    btn.disabled = false;
+  }
+}
+
+// ── HAPUS DATA ─────────────────────────────────────────────────
+async function hapusData(id) {
+  if (!confirm('Hapus data ini?')) return;
+  const prev = [...items];
+  items = items.filter(d => d.id !== id);
+  try {
+    await saveData();
+    renderTable();
+    updateStats();
+    showToast('🗑 Data dihapus', 'success');
+  } catch (_) {
+    items = prev;
+    renderTable();
+  }
+}
+
+// ── SORT ───────────────────────────────────────────────────────
+function setSort(key) {
+  if (sortKey === key) sortDir *= -1;
+  else { sortKey = key; sortDir = -1; }
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sort-btn-' + key).classList.add('active');
+  renderTable();
+}
+
+// ── RENDER TABLE ───────────────────────────────────────────────
+function renderTable() {
+  const q = document.getElementById('search-inp').value.toLowerCase();
+  let list = items.filter(d => d.nama.toLowerCase().includes(q));
+
+  list.sort((a, b) => {
+    const av = sortKey === 'nama' ? a.nama : sortKey === 'tanggal' ? a.tanggal : sortKey === 'online' ? a.online : a.offline;
+    const bv = sortKey === 'nama' ? b.nama : sortKey === 'tanggal' ? b.tanggal : sortKey === 'online' ? b.online : b.offline;
+    if (av < bv) return -1 * sortDir;
+    if (av > bv) return  1 * sortDir;
+    return 0;
+  });
+
+  const tbody = document.getElementById('tabel-body');
+  document.getElementById('row-count').textContent = list.length + ' produk';
+
+  if (list.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="7">
+        <div class="empty-state">
+          <div class="icon">🌾</div>
+          <p>${items.length === 0
+            ? 'Belum ada data.<br>Tambahkan harga pestisida pertama Anda.'
+            : 'Tidak ada hasil untuk pencarian tersebut.'}</p>
+        </div>
+      </td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map((d, i) => {
+    const selisih = d.offline - d.online;
+    let badgeClass, badgeLabel;
+    if      (selisih > 0) { badgeClass = 'badge-hemat'; badgeLabel = '↓ Hemat ' + rp(selisih); }
+    else if (selisih < 0) { badgeClass = 'badge-mahal'; badgeLabel = '↑ Mahal ' + rp(Math.abs(selisih)); }
+    else                  { badgeClass = 'badge-sama';  badgeLabel = '= Sama'; }
+
+    return `
+    <tr>
+      <td class="center num-cell">${i + 1}</td>
+      <td><div class="nama-cell">${d.nama}</div></td>
+      <td class="right"><span class="price price-online">${rp(d.online)}</span></td>
+      <td class="right"><span class="price price-offline">${rp(d.offline)}</span></td>
+      <td class="right"><span class="badge ${badgeClass}">${badgeLabel}</span></td>
+      <td class="tanggal-cell">${formatTanggal(d.tanggal)}</td>
+      <td class="center"><button class="btn-del" onclick="hapusData(${d.id})">Hapus</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── UPDATE STATS ───────────────────────────────────────────────
+function updateStats() {
+  document.getElementById('stat-total').textContent = items.length || '0';
+  if (items.length === 0) {
+    document.getElementById('stat-avg-online').textContent  = '—';
+    document.getElementById('stat-avg-offline').textContent = '—';
+    return;
+  }
+  const avgO = items.reduce((s, d) => s + d.online,  0) / items.length;
+  const avgF = items.reduce((s, d) => s + d.offline, 0) / items.length;
+  document.getElementById('stat-avg-online').textContent  = rpShort(Math.round(avgO));
+  document.getElementById('stat-avg-offline').textContent = rpShort(Math.round(avgF));
+}
+
+// ── TOAST ──────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast ' + type + ' show';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.className = 'toast', 3000);
+}
+
+// Enter key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && ['inp-nama','inp-online','inp-offline','inp-tanggal'].includes(e.target.id)) {
+    tambahData();
+  }
+});
+</script>
+</body>
+</html>
