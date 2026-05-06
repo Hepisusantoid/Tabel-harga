@@ -4,5 +4,6 @@
     "api/data.js": {
       "runtime": "@vercel/node"
     }
-  }
+  },
+  "outputDirectory": "public"
 }
